@@ -122,7 +122,7 @@ class DoublyLinkedList:
         self.length -= 1
         # if empty
         if not self.head and not self.tail:
-            return
+            return 0
         # if head and tail
         if self.head == self.tail:
             self.head = None
