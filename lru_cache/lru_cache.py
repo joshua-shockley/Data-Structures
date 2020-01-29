@@ -22,8 +22,7 @@ class LRUCache:
         return self.length
 
     def __str__(self):
-        return self.stuff
-
+        return self.dll
     """
     Retrieves the value associated with the given key. Also
     needs to move the key-value pair to the end of the order
@@ -35,9 +34,8 @@ class LRUCache:
     def get(self, key):
         try:
             # it exists
-            # value = self.stuff[key]
-            # node = (key, value)
             node = self.stuff[key]
+            print(node.value[0], node.value[1])
             self.dll.move_to_front(node)  # this moves to front of dll
             return node.value[1]
         except:
@@ -60,6 +58,7 @@ class LRUCache:
             # It does exist
             node = self.stuff[key]
             node.value = (key, value)
+            self.dll.move_to_front(node)  # this moves to front of dll
             return node.value[1]
         except:
             # It does not exist
@@ -68,13 +67,12 @@ class LRUCache:
             # this is the attempt to rewire
             # this sets node for adding to dll
             node = (key, value)
-            # node = self.stuff[key]
             self.dll.add_to_head(node)  # adds node to dll at the head
             self.stuff[key] = self.dll.add_to_head(
                 node)  # adds key to the cache
             nv = self.stuff[key]
 
-            while self.length > self.limit:
+            if self.length == self.limit+1:
                 tail = self.dll.tail
                 key_to_go = tail.value[0]
                 print('print tail', key_to_go)
@@ -110,18 +108,27 @@ class LRUCache:
         #     return nv.value[1]
 
 
-test = LRUCache(3)
+test = LRUCache(2)
 test.set('item1', '1')
+# print(str(test.stuff))
 test.set('item2', '2')
-test.set('item3', '3')
-test.set('item2', 're-set')
-print(test.get('item2'))
+# print(str(test.stuff))
+# test.set('item3', '3')
+# print(str(test.stuff))
+
+# test.set('item2', 're-set')
+# print('after resetting item2', str(test.stuff))
+
+# print(test.get('item2'))
+# print(str(test.stuff))
+
 
 print(test.get('item1'))
-print(test.get('item3'))
+# print(test.get('item3'))
 print(test.set('item4', '4'))
 print('test should come back None:', test.get('item2'))
 print('test should come back with value of item1:', test.get('item1'))
-print(test.limit)
-print(len(test.stuff))
-print(test.length)
+print('limit', test.limit)
+print('dll len', len(test.dll))
+print('test length:', test.length)
+print(str(test.dll))
