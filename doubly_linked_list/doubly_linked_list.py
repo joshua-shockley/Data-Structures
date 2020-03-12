@@ -122,27 +122,61 @@ class DoublyLinkedList:
     """Removes the input node from its current spot in the
     List and inserts it as the new head node of the List."""
 
+    # may need more done in ListNode before possible....
     def move_to_front(self, node):
         pass
 
     """Removes the input node from its current spot in the
         List and inserts it as the new tail node of the List."""
 
+    # may need more done in ListNode before possible....
     def move_to_end(self, node):
         pass
     """Removes a node from the list and handles cases where
                 the node was the head or the tail"""
 
+    # may need more done in ListNode before possible....
     def delete(self, node):
-        pass
+        if not self.head and not self.tail:
+            return
+        if self.head == self.tail:
+            value = node.value
+            self.head = None
+            self.tail = None
+            self.length -= 1
+            return value
+        elif self.head == node:
+            self.remove_from_head()
+            self.length -= 1
+            return node.value
+        elif self.tail == node:
+            self.remove_from_tail()
+            self.length -= 1
+            return node.value
+        # else:
+        #     #last time i did this it needed to have a delete in ListNode class to use it.. it uses the node info
 
     """Returns the highest value currently in the list"""
 
     def get_max(self):
-        pass
+        if self.head is None:
+            return None
+        max_value = self.head.value
+        current = self.head
+        while current:
+            if current.value > max_value:
+                max_value = current.value
+            current = current.next
+        return max_value
 
 
 dll = DoublyLinkedList()
 dll.add_to_head(5)
+dll.add_to_head(3)
+dll.add_to_head(7)
+dll.add_to_head(8)
+dll.add_to_tail(1)
 
 print(dll)
+
+print(dll.get_max())

@@ -22,7 +22,7 @@ class LRUCache:
         return self.length
 
     def __str__(self):
-        return self.dll
+        return f"{self.dll.head}"
     """
     Retrieves the value associated with the given key. Also
     needs to move the key-value pair to the end of the order
