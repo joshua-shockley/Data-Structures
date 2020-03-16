@@ -22,6 +22,15 @@ class LRUCache:
         self.size = 0
         self.dll = DoublyLinkedList()  # the node is storing the value
 
+    def __str__(self):
+        curr_node = self.dll.head
+        output = ""
+        output += f"{curr_node.value} <-> "
+        while curr_node.next is not None:
+            curr_node = curr_node.next
+            output += f"{curr_node.value} <-> "
+        return f" lru size: {self.size} \n Nodes: {output}"
+
     """
     Retrieves the value associated with the given key. Also
     needs to move the key-value pair to the end of the order
@@ -55,7 +64,7 @@ class LRUCache:
         # check for key in dict aka storage:
         if key in self.storage:
             # if is in storage:
-            node = self.storage[key]  # grabbing the entire not stored in dict
+            node = self.storage[key]  # grabbing the entire node stored in dict
             # update it with new info
             node.value = (key, value)
             # move to position of most recently used (head)
@@ -76,3 +85,14 @@ class LRUCache:
         self.storage[key] = self.dll.head
         # we need to add to size
         self.size += 1
+        return
+
+
+cache = LRUCache()
+print(cache.size)
+cache.set(1, 55)
+print(cache)
+print("geting what isn't made yet: ", cache.get(2))
+cache.set(2, 35)
+cache.set(3, 44)
+print(cache.get(3))
