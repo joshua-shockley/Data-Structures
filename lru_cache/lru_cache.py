@@ -17,12 +17,11 @@ class LRUCache:
 
     def __init__(self, limit=10):
         self.limit = limit
+        # the entire node is stored in dict as Key:tuple= (key,value)
         self.storage = {}
         self.size = 0
-        self.dll = DoublyLinkedList()
+        self.dll = DoublyLinkedList()  # the node is storing the value
 
-    def __str__(self):
-        pass
     """
     Retrieves the value associated with the given key. Also
     needs to move the key-value pair to the end of the order
@@ -31,7 +30,16 @@ class LRUCache:
     key-value pair doesn't exist in the cache.
     """
 
-    def get(self, key):
+    def get(self, key):  # cache is called storage
+        if key in self.storage:
+            node = self.storage[key]
+        # if key in storage:
+        #   move it to head
+        #   return the value
+            self.dll.add_to_head(node)
+            return node.value[1]  # as a tuple this key is [0] and value is [1]
+        else:
+            return None
     """
     Adds the given key-value pair to the cache. The newly-
     added pair should be considered the most-recently used
@@ -43,4 +51,28 @@ class LRUCache:
     the newly-specified value.
     """
 
-    def set(self, key, value):  # cache is called stuff
+    def set(self, key, value):  # cache is called storage
+        # check for key in dict aka storage:
+        if key in self.storage:
+            # if is in storage:
+            node = self.storage[key]  # grabbing the entire not stored in dict
+            # update it with new info
+            node.value = (key, value)
+            # move to position of most recently used (head)
+            self.dll.add_to_head(node)
+            # nothing else to do to return and exit
+            return
+            # if full:
+        if self.size == self.limit:
+            # remove least recently used  item (tail) from  dll
+            self.dll.remove_from_tail()
+            # remove from dict
+            del self.storage[self.dll.tail.value[0]]
+            # reduce size
+            self.size -= 1
+        self.dll.add_to_head((key, value))
+        # we set it to list (key, value) as a node
+        # we need to set to the cache/dict
+        self.storage[key] = self.dll.head
+        # we need to add to size
+        self.size += 1
