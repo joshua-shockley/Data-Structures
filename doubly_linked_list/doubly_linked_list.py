@@ -5,6 +5,12 @@ class ListNode:
         self.prev = prev
         self.next = next
 
+    def delete(self):
+        if self.prev:
+            self.prev.next = self.next
+        if self.next:
+            self.next.prev = self.prev
+
 
 """Our doubly-linked list class. It holds references to
 the list's head and tail nodes."""
@@ -137,24 +143,23 @@ class DoublyLinkedList:
 
     # may need more done in ListNode before possible....
     def delete(self, node):
+        self.length -= 1
         if not self.head and not self.tail:
-            return
+            return 0
         if self.head == self.tail:
             value = node.value
             self.head = None
             self.tail = None
-            self.length -= 1
             return value
         elif self.head == node:
             self.remove_from_head()
-            self.length -= 1
             return node.value
         elif self.tail == node:
             self.remove_from_tail()
-            self.length -= 1
             return node.value
-        # else:
         #     #last time i did this it needed to have a delete in ListNode class to use it.. it uses the node info
+        else:
+            node.delete()
 
     """Returns the highest value currently in the list"""
 

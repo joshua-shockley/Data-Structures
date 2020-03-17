@@ -15,7 +15,7 @@ class LRUCache:
     to every node stored in the cache.
     """
 
-    def __init__(self, limit=10):
+    def __init__(self, limit=4):
         self.limit = limit
         # the entire node is stored in dict as Key:tuple= (key,value)
         self.storage = {}
@@ -45,7 +45,7 @@ class LRUCache:
         # if key in storage:
         #   move it to head
         #   return the value
-            self.dll.add_to_head(node)
+            self.dll.move_to_front(node)
             return node.value[1]  # as a tuple this key is [0] and value is [1]
         else:
             return None
@@ -66,9 +66,10 @@ class LRUCache:
             # if is in storage:
             node = self.storage[key]  # grabbing the entire node stored in dict
             # update it with new info
+            # creates the tuple that holds the data for the node stored in the dict
             node.value = (key, value)
             # move to position of most recently used (head)
-            self.dll.add_to_head(node)
+            self.dll.move_to_front(node)
             # nothing else to do to return and exit
             return
             # if full:
@@ -95,4 +96,18 @@ print(cache)
 print("geting what isn't made yet: ", cache.get(2))
 cache.set(2, 35)
 cache.set(3, 44)
-print(cache.get(3))
+print("get 3:", cache.get(3))
+print(cache)
+
+print("get 1:", cache.get(1))
+print(cache)
+
+print("get 2:", cache.get(2))
+print(cache)
+
+print("setting 4: ", cache.set(4, 22))
+print(cache)
+
+print("setting 5 (this should remove key3):", cache.set(5, 100))
+print(cache.limit)
+print(cache)
