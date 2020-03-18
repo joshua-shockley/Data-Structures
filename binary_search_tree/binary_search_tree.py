@@ -60,13 +60,15 @@ class BinarySearchTree:
     # You may use a recursive or iterative approach
     # STILL WORKING ON THIS PART.. KEEPS THROWING OUT NEW ERRORS EACH TIME I ADJUST ANYTHING
     def for_each(self, cb):
-        cb()
+        curr_node = self.value
+        print(curr_node)
+        cb(curr_node)
         if self.left:
-            return self.left.for_each(cb)
+            self.left.for_each(cb)
         if self.right:
-            return self.right.for_each(cb)
-        else:
-            return
+            self.right.for_each(cb)
+        # else:
+        #     return cb(curr_node)
 
     # DAY 2 Project -----------------------
 
@@ -96,3 +98,7 @@ class BinarySearchTree:
     # Print Post-order recursive DFT
     def post_order_dft(self, node):
         pass
+
+
+def add_one(x):
+    return x+1

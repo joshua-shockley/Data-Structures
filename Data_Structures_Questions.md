@@ -3,19 +3,19 @@ Answer the following questions for each of the data structures you implemented a
 ## Queue
 
 1. What is the runtime complexity of `enqueue`?
-
+    o(1)
 2. What is the runtime complexity of `dequeue`?
-
+    o(1)
 3. What is the runtime complexity of `len`?
-
+    o(1) as it is a stored class method of the DoublyLinkedList class used by the queue class
 ## Binary Search Tree
 
 1. What is the runtime complexity of `insert`? 
-
+    o(h) where h is the height of the tree
 2. What is the runtime complexity of `contains`?
-
+    log(n)
 3. What is the runtime complexity of `get_max`? 
-
+    log(n) or less as it only has to traverse direclty to the right.
 ## Heap
 
 1. What is the runtime complexity of `_bubble_up`?

@@ -45,7 +45,9 @@ class LRUCache:
         # if key in storage:
         #   move it to head
         #   return the value
+            print(self.storage)
             self.dll.move_to_front(node)
+
             return node.value[1]  # as a tuple this key is [0] and value is [1]
         else:
             return None
@@ -68,24 +70,27 @@ class LRUCache:
             # update it with new info
             # creates the tuple that holds the data for the node stored in the dict
             node.value = (key, value)
+
             # move to position of most recently used (head)
             self.dll.move_to_front(node)
+
             # nothing else to do to return and exit
             return
+        else:
             # if full:
-        if self.size == self.limit:
-            # remove least recently used  item (tail) from  dll
-            self.dll.remove_from_tail()
-            # remove from dict
-            del self.storage[self.dll.tail.value[0]]
-            # reduce size
-            self.size -= 1
-        self.dll.add_to_head((key, value))
+            if self.size == self.limit:
+                # remove least recently used  item (tail) from  dll
+                self.dll.remove_from_tail()
+                # remove from dict
+                del self.storage[self.dll.tail.value[0]]
+                # reduce size
+                self.size -= 1
+            self.dll.add_to_head((key, value))
         # we set it to list (key, value) as a node
         # we need to set to the cache/dict
-        self.storage[key] = self.dll.head
+            self.storage[key] = self.dll.head
         # we need to add to size
-        self.size += 1
+            self.size += 1
         return
 
 
@@ -100,6 +105,8 @@ print("get 3:", cache.get(3))
 print(cache)
 
 print("get 1:", cache.get(1))
+print(cache)
+print(cache.set(1, 'new'))
 print(cache)
 
 print("get 2:", cache.get(2))
