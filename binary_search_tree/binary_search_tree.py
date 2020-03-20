@@ -1,7 +1,7 @@
-# from dll_stack import Stack
-# from dll_queue import Queue
-# import sys
-# sys.path.append('../queue_and_stack')
+from dll_stack import Stack
+from dll_queue import Queue
+import sys
+sys.path.append('../queue_and_stack')
 
 
 class BinarySearchTree:
@@ -21,7 +21,7 @@ class BinarySearchTree:
                 # this recurses if there is a left
                 # this keep looking for where it belongs if there are already values/nodes in tree
                 return self.left.insert(value)
-        if value > self.value:  # repeated same as the left above
+        if value >= self.value:  # repeated same as the left above
             if not self.right:
                 self.right = BinarySearchTree(
                     value)  # makes the node if bigger
@@ -75,18 +75,61 @@ class BinarySearchTree:
     # Print all the values in order from low to high
     # Hint:  Use a recursive, depth first traversal
 
-    def in_order_print(self, node):
-        pass
-
+    def in_order_print(self, node):  # prints None at the end but passes, why?
+        if node.left is not None:
+            self.in_order_print(node.left)
+        print(node.value)
+        if node.right is not None:
+            self.in_order_print(node.right)
+        # elif node.left is None and node.right is None:
+        #     pass
     # Print the value of every node, starting with the given node,
     # in an iterative breadth first traversal
-    def bft_print(self, node):
-        pass
 
+    def bft_print(self, node):
+        # create a queue for nodes
+        q = Queue()
+        # add current node to queue
+        q.enqueue(self.value)
+        # while the queue isn't empty
+        while q.len() > 0:
+            # dequeue a node
+            thing = q.dequeue()
+
+            print(thing)
+            # print the dequeued node
+            if node.left is not None and node.right is not None:
+                q.enqueue(self.left.value)
+                q.enqueue(self.right.value)
+            # add it's chldren to queue
+            # i.e add left (if can)
+            if node.left is None and node.right is None:
+                print(self.value)
+            self.bft_print(node.left)
+            self.bft_print(node.right)
+            # add right (if can)
+            # pass
+            # return
     # Print the value of every node, starting with the given node,
     # in an iterative depth first traversal
+
     def dft_print(self, node):
-        pass
+        # create a stack
+        stack = Stack()
+        # push the current node onto stack
+        stack.push(node.value)
+        # while we have items on stack
+        while stack.size > 0:
+            # print current value and then pop it off
+            print(stack.pop())
+            # push the right value of the current node (if can)
+            if node.right:
+                stack.push(node.right.value)
+            # push the left value of current node (if can)
+            if node.left:
+                stack.push(node.left.value)
+        # pass
+            return
 
     # STRETCH Goals -------------------------
     # Note: Research may be required
@@ -100,5 +143,18 @@ class BinarySearchTree:
         pass
 
 
-def add_one(x):
-    return x+1
+tree = BinarySearchTree(5)
+tree.insert(3)
+tree.insert(2)
+tree.insert(7)
+tree.insert(6)
+# tree.in_order_print(tree)
+
+# arr = []
+
+# def bb(x): return arr.append(x+1)
+
+# tree.for_each(bb)
+# print(arr)
+
+tree.bft_print(tree)
