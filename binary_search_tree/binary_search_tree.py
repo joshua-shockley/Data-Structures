@@ -2,6 +2,7 @@ from dll_stack import Stack
 from dll_queue import Queue
 import sys
 sys.path.append('../queue_and_stack')
+# must be in this directory for the import to work
 
 
 class BinarySearchTree:
@@ -86,61 +87,74 @@ class BinarySearchTree:
     # Print the value of every node, starting with the given node,
     # in an iterative breadth first traversal
 
-    def bft_print(self, node):
+    def bft_print(self, node):  # works at each height
         # create a queue for nodes
         q = Queue()
         # add current node to queue
-        q.enqueue(self.value)
+        q.enqueue(node)
         # while the queue isn't empty
         while q.len() > 0:
             # dequeue a node
-            thing = q.dequeue()
-
-            print(thing)
             # print the dequeued node
-            if node.left is not None and node.right is not None:
-                q.enqueue(self.left.value)
-                q.enqueue(self.right.value)
+            # print("q:", q)
+            # it was wrong when assigning a new variable name instead of reassigning the new value to existing node
+            # ex: thing=.....
+            node = q.dequeue()
+            print(node.value)
             # add it's chldren to queue
             # i.e add left (if can)
-            if node.left is None and node.right is None:
-                print(self.value)
-            self.bft_print(node.left)
-            self.bft_print(node.right)
+            if node.left is not None:
+                # lvalue = self.left.value
+                # print("entered left value:", lvalue)
+                q.enqueue(node.left)
             # add right (if can)
-            # pass
-            # return
-    # Print the value of every node, starting with the given node,
-    # in an iterative depth first traversal
+            if node.right is not None:
+                # rvalue = self.right.value
+                # print("entered right value:", rvalue)
+                q.enqueue(node.right)
+
+        # Print the value of every node, starting with the given node,
+        # in an iterative depth first traversal
 
     def dft_print(self, node):
         # create a stack
         stack = Stack()
         # push the current node onto stack
-        stack.push(node.value)
+        stack.push(node)
         # while we have items on stack
         while stack.size > 0:
             # print current value and then pop it off
-            print(stack.pop())
+            node = stack.pop()
+            # now that i have assigned the return from the pop a variable name print what was popped
+            print(node.value)
             # push the right value of the current node (if can)
-            if node.right:
-                stack.push(node.right.value)
+            if node.right is not None:
+                stack.push(node.right)
             # push the left value of current node (if can)
-            if node.left:
-                stack.push(node.left.value)
+            if node.left is not None:
+                stack.push(node.left)
         # pass
-            return
 
     # STRETCH Goals -------------------------
     # Note: Research may be required
 
-    # Print In-order recursive DFT
+    # Print pre-order recursive DFT
+
     def pre_order_dft(self, node):
-        pass
+        if node == None:
+            return
+        print(node.value)
+        self.pre_order_dft(node.left)
+        self.pre_order_dft(node.right)
 
     # Print Post-order recursive DFT
     def post_order_dft(self, node):
-        pass
+        # backwords print
+        if node == None:
+            return
+        self.post_order_dft(node.left)
+        self.post_order_dft(node.right)
+        print(node.value)
 
 
 tree = BinarySearchTree(5)
@@ -148,6 +162,7 @@ tree.insert(3)
 tree.insert(2)
 tree.insert(7)
 tree.insert(6)
+tree.insert(8)
 # tree.in_order_print(tree)
 
 # arr = []
@@ -156,5 +171,11 @@ tree.insert(6)
 
 # tree.for_each(bb)
 # print(arr)
-
+print("bft_print")
 tree.bft_print(tree)
+print("dft_print")
+tree.dft_print(tree)
+print("pre_order")
+tree.pre_order_dft(tree)
+print("post_order")
+tree.post_order_dft(tree)

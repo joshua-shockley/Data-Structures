@@ -22,7 +22,7 @@ class Stack:
     def push(self, value):
         # utilizes the instance of dlll to add to head
         self.stack.add_to_head(value)
-        print(f"added value: {value}")
+        # print(f"added value: {value}")
         self.size += 1  # increases the "size" to correct the count
         return f"{self.size}, {value}"
 
@@ -32,7 +32,7 @@ class Stack:
         else:
             # uses the instance to remove from top of stack
             thing = self.stack.remove_from_head()
-            print(f"removed:{thing}")
+            # print(f"removed:{thing}")
             self.size -= 1  # decreases the count so that it is accuate
             return thing  # returns the item deleted for reference
 
@@ -40,13 +40,13 @@ class Stack:
         return self.size  # displays the "length" or the current count of what's added vs removed
 
 
-stack = Stack()
-stack.push(3)
-stack.push(55)
-print(stack)
-stack.pop()  # removes last push of 55
-print(stack)
-stack.push(33)
-print(stack)
-stack.push(88)
-print(stack)
+# stack = Stack()
+# stack.push(3)
+# stack.push(55)
+# print(stack)
+# stack.pop()  # removes last push of 55
+# print(stack)
+# stack.push(33)
+# print(stack)
+# stack.push(88)
+# print(stack)

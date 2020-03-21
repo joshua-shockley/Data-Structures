@@ -27,7 +27,7 @@ class Queue:
     def enqueue(self, value):
         # use the storage/queue made above to get started and then the imported method to add/remove
         self.queue.add_to_tail(value)
-        print(f"added : {value}")
+        # print(f"added : {value}")
         self.size += 1
 
     def dequeue(self):
@@ -36,7 +36,7 @@ class Queue:
         else:
             # sets the value to be returned of what is deleted/removed then also performs the function
             thing = self.queue.remove_from_head()
-            print(f"removed: {thing}")
+            # print(f"{thing}")
             self.size -= 1  # makes sense to do this after checks out
             return thing
 
